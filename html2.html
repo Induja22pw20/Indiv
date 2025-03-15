@@ -201,51 +201,61 @@
   
   
     
-
-    <!--contact start-->
-<!--contact start-->
+<!-- Contact Start -->
 <h2><i>CONTACT US</i></h2><br>
 <div class="image-container">
   <img class="image" src="image/i1.jpg" alt="Image 1">
   <img class="image" src="image/i2.jpg" alt="Image 2">
   <img class="image" src="image/i3.jpg" alt="Image 3">
-  <img class="image" src="image/i4.jpg" alt="Image 1">
-  <img class="image" src="image/i5.jpg" alt="Image 2">
-  <img class="image" src="image/i6.jpg" alt="Image 3">
-  <img class="image" src="image/i9.jpg" alt="Image 1">
-  
+  <img class="image" src="image/i4.jpg" alt="Image 4">
+  <img class="image" src="image/i5.jpg" alt="Image 5">
+  <img class="image" src="image/i6.jpg" alt="Image 6">
+  <img class="image" src="image/i9.jpg" alt="Image 7">
 </div>
+
 <section class="contact" id="contact">
-  
-    
   <div class="map">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.2202192619467!2d76.989621514815!3d11.046185091861681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f9c16e65b7b5%3A0x4264c8f73e0e07d8!2sPSG%20College%20of%20Technology!5e0!3m2!1sen!2sin!4v1646399726962!5m2!1sen!2sin" width="400" height="430" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.2202192619467!2d76.989621514815!3d11.046185091861681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f9c16e65b7b5%3A0x4264c8f73e0e07d8!2sPSG%20College%20of%20Technology!5e0!3m2!1sen!2sin!4v1646399726962!5m2!1sen!2sin" 
+      width="400" height="430" style="border:0;" allowfullscreen="" loading="lazy">
+    </iframe>
   </div>
+
   <div class="details">
-    <form action="contact.php" onsubmit="return validateForm()" method="POST">        <label>Name:</label>
-        <input type="text" id="name" name="cname" placeholder="Your name"><br>
-        <span id="nameError" class="error"></span><br>
-        <label>Email:</label><br>
-        <input type="text" id="email" name="cemail" placeholder="Email address"><br>
-        <span id="emailError" class="error"></span><br>
-        <label>Contact:</label>
-        <textarea id="message" rows="1" cols="30" name="cfeed" placeholder="Write your feedback"></textarea>
-        <span id="feedbackError" class="error"></span><br>
-        <button type="submit">Submit</button>
+    <form id="fakeForm">
+      <label>Name:</label>
+      <input type="text" id="name" name="cname" placeholder="Your name"><br>
+      <span id="nameError" class="error"></span><br>
+
+      <label>Email:</label><br>
+      <input type="text" id="email" name="cemail" placeholder="Email address"><br>
+      <span id="emailError" class="error"></span><br>
+
+      <label>Contact:</label>
+      <textarea id="message" rows="1" cols="30" name="cfeed" placeholder="Write your feedback"></textarea>
+      <span id="feedbackError" class="error"></span><br>
+
+      <button type="submit">Submit</button>
     </form>
-</div>
-<script>
-    function validateForm() {
+  </div>
+  <div id="notification" style="display: none; position: fixed; top: 10px; left: 50%; transform: translateX(-50%); background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; z-index: 1000;">
+    New record created successfully
+  </div>
+  <script>
+    document.getElementById("fakeForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevents actual submission
+
+        // Form Validation
         const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
-        const message = document.getElementById("message").value;
+        const feedback = document.getElementById("message").value;
+        
         const nameError = document.getElementById("nameError");
         const emailError = document.getElementById("emailError");
-        const feedback=document.getElementById("message").value;
-        const feedbackError=document.getElementById("feedbackError");
-        
+        const feedbackError = document.getElementById("feedbackError");
+
         nameError.textContent = "";
         emailError.textContent = "";
+        feedbackError.textContent = "";
 
         let valid = true;
 
@@ -259,25 +269,26 @@
             valid = false;
         }
 
-        if (feedback==""){
-          feedbackError.textContent="Required";
-          valid=false;
-        }
-        else{
-          feedbackError.textContent="";
+        if (feedback === "") {
+          feedbackError.textContent = "Required";
+          valid = false;
         }
 
-        return valid;
-    }
-</script>
+        if (valid) {
+            // Display notification message at the top
+            document.getElementById("notification").style.display = "block";
+
+            // Hide the notification after 3 seconds
+            setTimeout(function() {
+                document.getElementById("notification").style.display = "none";
+            }, 3000);
+        }
+    });
+  </script>
 
 </section>
+<!-- Contact End -->
 
-
-
-
-
-<!--contact end-->
     <!--Payment section start-->
     <section class="pricing-container" id="package">
       <div class="pricing-heading">
