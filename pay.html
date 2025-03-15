@@ -164,6 +164,15 @@
     #leftSide .animated-images img.active {
       display: block;
     }
+    .notification {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px;
+      margin-top: 20px;
+      display: none;
+      border-radius: 4px;
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -290,8 +299,11 @@
 
       </fieldset>
     </form>
+    <div class="notification" id="paymentNotification">
+      Payment Successful! Thank you for your payment.
+    </div>
   </div>
-
+ 
   <script>
     function toggleVisibility(inputId) {
       const input = document.getElementById(inputId);
@@ -315,63 +327,69 @@ function showQrCode() {
   document.getElementById('topic').style.display = 'block';
   document.getElementById('qrCodeContainer').style.display = 'block';
 }
+function validateForm() {
+  // Retrieve input field values
+  const cardholder = document.getElementById('cardholder').value;
+  const cardNumber = document.getElementById('cardNumber').value;
+  const expirationDate = document.getElementById('expirationDate').value;
+  const cvv = document.getElementById('cvv').value;
 
+  // Regular expressions for validation
+  const cardholderRegex = /^[a-zA-Z\s]+$/;
+  const cardNumberRegex = /^\d{16}$/; // Ensure it is 16 digits
+  const expirationDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/; // MM/YY format
+  const cvvRegex = /^\d{3}$/; // CVV should be 3 digits
 
-  function validateForm() {
-    // Retrieve input field values
-    const cardholder = document.getElementById('cardholder').value;
-    const cardNumber = document.getElementById('cardNumber').value;
-    const expirationDate = document.getElementById('expirationDate').value;
-    const cvv = document.getElementById('cvv').value;
+  // Error messages
+  const errors = [];
 
-    // Regular expressions for validation
-    const cardholderRegex = /^[a-zA-Z\s]+$/;
-    const cardNumberRegex = /^\d{16}$/;
-    const expirationDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
-    const cvvRegex = /^\d{3}$/;
-
-    // Error messages
-    const errors = [];
-
-    // Validate cardholder name
-    if (!cardholderRegex.test(cardholder)) {
-      document.getElementById('cardholderError').textContent = "Please enter a valid cardholder name.";
-      errors.push("Please enter a valid cardholder name.");
-    } else {
-      document.getElementById('cardholderError').textContent = "";
-    }
-
-    // Validate card number
-    if (!cardNumberRegex.test(cardNumber)) {
-      document.getElementById('cardNumberError').textContent = "Please enter a valid 16-digit card number.";
-      errors.push("Please enter a valid 16-digit card number.");
-    } else {
-      document.getElementById('cardNumberError').textContent = "";
-    }
-
-    // Validate expiration date
-    if (!expirationDateRegex.test(expirationDate)) {
-      document.getElementById('expirationError').textContent = "Please enter a valid expiration date in MM/YY format.";
-      errors.push("Please enter a valid expiration date in MM/YY format.");
-    } else {
-      document.getElementById('expirationError').textContent = "";
-    }
-
-    // Validate CVV
-    if (!cvvRegex.test(cvv)) {
-      document.getElementById('cvvError').textContent = "Please enter a valid 3-digit CVV.";
-      errors.push("Please enter a valid 3-digit CVV.");
-    } else {
-      document.getElementById('cvvError').textContent = "";
-    }
-
-    // Display error messages or submit form
-    if (errors.length > 0) {
-      return false; // Prevent form submission
-    } else {
-      return true; // Allow form submission
-    }
+  // Validate cardholder name
+  if (!cardholderRegex.test(cardholder)) {
+    document.getElementById('cardholderError').textContent = "Please enter a valid cardholder name.";
+    errors.push("Please enter a valid cardholder name.");
+  } else {
+    document.getElementById('cardholderError').textContent = "";
   }
+
+  // Validate card number
+    
+  document.getElementById('cardNumberError').textContent = "";
+
+  // Validate expiration date
+  if (!expirationDateRegex.test(expirationDate)) {
+    document.getElementById('expirationError').textContent = "Please enter a valid expiration date (MM/YY).";
+    errors.push("Please enter a valid expiration date.");
+  } else {
+    document.getElementById('expirationError').textContent = "";
+  }
+
+  // Validate CVV
+  if (!cvvRegex.test(cvv)) {
+    document.getElementById('cvvError').textContent = "Please enter a valid 3-digit CVV.";
+    errors.push("Please enter a valid 3-digit CVV.");
+  } else {
+    document.getElementById('cvvError').textContent = "";
+  }
+
+  // If there are errors, prevent form submission
+  if (errors.length > 0) {
+    return false;
+  }
+
+  // Show success notification if all fields are valid
+  showPaymentSuccess();
+  return false; // Prevent form submission for demonstration
+}
+
+function showPaymentSuccess() {
+  var notification = document.getElementById("paymentNotification");
+      notification.style.display = "block";
+
+      // Hide the notification after 3 seconds
+      setTimeout(function () {
+        notification.style.display = "none";
+      }, 3000);
+}
   </script>
 </body>
 
