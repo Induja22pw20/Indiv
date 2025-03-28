@@ -1,7 +1,7 @@
 ## Online Course Learning Platform (InDiv)
 This project is a user-friendly online course learning platform that offers interactive features such as a course catalog, enrollment system, video lectures, feedback system, and placement-related training. The platform is built using HTML, CSS, and JavaScript for the frontend, and PHP and MySQL for the backend.
 
-##Features
+## Features
 - Course Catalog: Browse through a wide range of courses with detailed descriptions.
 
 - Enrollment System: Users can enroll in courses easily with a smooth registration and login process.
